@@ -1,0 +1,11 @@
+@import "~bootstrap/scss/bootstrap";
+
+.img_thumb{
+    width: 300px;
+    height: fit-content;
+    border: 1px solid black;
+    img{
+        width: 100%;
+        display: block;
+    }
+}
