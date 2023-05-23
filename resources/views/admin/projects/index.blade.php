@@ -23,7 +23,7 @@
                         <td>{{ $project->description }}</td>
                         <td>{{ $project->owner }}</td>
                         <td>{{ $project->contributors }}</td>
-                        <td>{{ $project->languages }}</td>
+                        <td>{{ $project->$technologies?->id->implode('name',',')?: 'None' }}</td>
                         <td><a href="{{ route('admin.projects.show', $project->id) }}" class="btn btn-success">Info</a></td>
                         <td><a href="{{ route('admin.projects.edit', $project->id) }}" class="btn btn-warning">Edit</a></td>
                         <td>
