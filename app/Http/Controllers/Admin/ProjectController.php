@@ -31,9 +31,11 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        $types = Type::all();
-        $technologies = Technology::all();
-        return view('admin.projects.create', compact('types', 'technologies'));
+        $data = [
+            'types'=>Type::all(),
+            'technologies'=>Technology::all()
+        ];
+        return view('admin.projects.create', $data);
     }
 
     /**
@@ -46,12 +48,16 @@ class ProjectController extends Controller
     {
         $data = $request->validated();
         $newProject = new Project();
-        $newProject->fill($data);
+        $technologies = isset($data['technologies']) ? $data['technologies'] : [];
         if (isset($data['image'])) {
             $newProject->image = Storage::put('uploads', $data['image']);
         }
+        
+        $newProject->fill($data);
         $newProject->save();
-        $newProject->technologies()->sync($request['technologies']);
+
+        $newProject->technologies()->sync($technologies);
+
         return to_route('admin.projects.index');
     }
 
@@ -102,8 +108,9 @@ class ProjectController extends Controller
                 $data['image'] = Storage::put('uploads', $data['image']);
             }
         }
-        $technologies = isset($data['$technologies']) ? $data['$technologies'] : [];
+        $project->technologies()->sync($request['technologies'] ?: []);
         $project->update($data);
+        $project->save();
         return to_route('admin.projects.index');
     }
 

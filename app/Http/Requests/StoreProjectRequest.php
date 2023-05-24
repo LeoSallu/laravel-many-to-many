@@ -30,7 +30,8 @@ class StoreProjectRequest extends FormRequest
             'contributors'=>'nullable|string|max:30',
             'languages'=>'nullable|string|max:20',
             'image'=>'nullable|image',
-            'type_id'=>'nullable|exists:types,id'
+            'type_id'=>'nullable|exists:types,id',
+            'technologies'=>'nullable|exists:technologies,id'
         ];
     }
 }

@@ -18,6 +18,7 @@
                     <th>Contributors</th>
                     <th>Languages</th>
                     <th>Type</th>
+                    <th>Technology</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,7 +28,13 @@
                     <th>{{ $project->owner }}</th>
                     <th>{{ $project->contributors }}</th>
                     <th>{{ $project->languages }}</th>
-                    <th>{{$project->type?->type ?: 'None'}}</th>
+                    <th>{{ $project->type?->type ?: 'None' }}</th>
+                    @forelse ($project->technologies as $technology)
+                        <th>{{ $technology->name }}</th>
+                    @empty
+                        <th>None technology</th>
+                    @endforelse
+
                 </tr>
             </tbody>
         </table>
